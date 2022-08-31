@@ -45,6 +45,8 @@ public class HomeController : Controller
 
     if (result.IsSuccessStatusCode)
     {
+
+      
       var model = await result.Content.ReadAsStringAsync();
       
       var data = JsonConvert.DeserializeObject<List<WeatherData>>(model);

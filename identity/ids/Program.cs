@@ -26,7 +26,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-  options.UseSqlite(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+  // options.UseSqlite(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+  options.UseNpgsql(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+  // options.UseNpgsql(connectionString));
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -40,9 +42,9 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseSuccessEvents = true;
 
     options.EmitStaticAudienceClaim = true;
-  }).AddConfigurationStore(options => options.ConfigureDbContext = b => b.UseSqlite(connectionString,
+  }).AddConfigurationStore(options => options.ConfigureDbContext = b => b.UseNpgsql(connectionString,
     opt => opt.MigrationsAssembly(migrationsAssembly)))
-  .AddOperationalStore(options => options.ConfigureDbContext = b => b.UseSqlite(connectionString,
+  .AddOperationalStore(options => options.ConfigureDbContext = b => b.UseNpgsql(connectionString,
     opt => opt.MigrationsAssembly(migrationsAssembly)))
   
   .AddAspNetIdentity<IdentityUser>();

@@ -39,7 +39,7 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
 
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-                AllowedScopes = {"weatherapi.read", "weatherapi.write"}
+                AllowedScopes = {"weatherapi.read", "weatherapi.write", "openid"}
             },
 
             // interactive client using code flow + pkce
@@ -49,10 +49,11 @@ public static class Config
                 ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
                     
                 AllowedGrantTypes = GrantTypes.Code,
+                RequirePkce = false,
 
-                RedirectUris = { "https://localhost:5444/signin-oidc" },
-                FrontChannelLogoutUri = "https://localhost:5444/signout-oidc",
-                PostLogoutRedirectUris = { "https://localhost:5444/signout-callback-oidc" },
+                RedirectUris = { "http://localhost:3000/auth/callback", "https://openidconnect.net/callback", "https://localhost:5444/signin-oidc" },
+                FrontChannelLogoutUri = "http://localhost:3000/logout",
+                PostLogoutRedirectUris = { "https://localhost:5444/signout-callback-oidc", "http://localhost:3000/" },
 
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile", "weatherapi.read" },
